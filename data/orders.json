@@ -1,0 +1,42 @@
+[
+    {
+        "orderId": "💸-buy-007",
+        "customer": "778901370870300714",
+        "staff": "778901370870300714",
+        "amount": 0,
+        "status": "Completed",
+        "completedAt": "2026-07-13T11:36:17.877Z"
+    },
+    {
+        "orderId": "💸-buy-010",
+        "customer": "1066320081518342175",
+        "staff": "778901370870300714",
+        "amount": 5000,
+        "status": "Completed",
+        "completedAt": "2026-07-13T18:31:23.473Z"
+    },
+    {
+        "orderId": "💸-buy-011",
+        "customer": "1066320081518342175",
+        "staff": "778901370870300714",
+        "amount": 50000,
+        "status": "Completed",
+        "completedAt": "2026-07-13T18:33:00.768Z"
+    },
+    {
+        "orderId": "💸-buy-015",
+        "customer": "1435689613472829481",
+        "staff": "778901370870300714",
+        "amount": 555555,
+        "status": "Completed",
+        "completedAt": "2026-07-14T11:12:05.569Z"
+    },
+    {
+        "orderId": "💸-buy-016",
+        "customer": "1287794817572667402",
+        "staff": "778901370870300714",
+        "amount": 5000,
+        "status": "Completed",
+        "completedAt": "2026-07-14T11:30:55.672Z"
+    }
+]
