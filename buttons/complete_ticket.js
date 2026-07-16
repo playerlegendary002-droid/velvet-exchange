@@ -3,6 +3,7 @@ const {
     ButtonBuilder,
     ButtonStyle
 } = require("discord.js");
+
 const fs = require("fs");
 const { saveOrder } = require("../utils/orderManager");
 
@@ -15,30 +16,21 @@ module.exports = {
         try {
             ticketData = JSON.parse(interaction.channel.topic);
         } catch {
-
             return interaction.reply({
                 content: "❌ Invalid ticket data.",
                 ephemeral: true
             });
-
         }
 
         if (ticketData.claimedBy) {
 
             saveOrder({
-
                 orderId: interaction.channel.name,
-
                 customer: ticketData.user,
-
                 staff: ticketData.claimedBy,
-
                 amount: Number(ticketData.amount),
-
                 status: "Completed",
-
                 completedAt: new Date().toISOString()
-
             });
 
             const limits = JSON.parse(
@@ -128,27 +120,34 @@ Keep this message as your exchange receipt.`
         }
 
         // ===========================
+        // VOUCH MESSAGE
+        // ===========================
 
         await interaction.followUp({
 
             content:
-`✅ **Exchange Completed Successfully**
+`# ✅ Exchange Completed
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+❤️ **Thank you for using Velvet Exchange!**
+
+Your exchange has been completed successfully.
 
 ## ⭐ Leave a Vouch
 
-Please go to <#1526317310602776697> and use:
+Please go to <#1526317310602776697>
 
-\`/vouch\`
-
-### 📋 Ready-to-Copy Vouch
+Copy the message below and paste it in the vouch channel.
 
 \`\`\`
-Legit! Got an exchange of ₹${ticketData.amount} from <@${ticketData.claimedBy}>.
-
-Fast & trusted service. 💎
++rep <@${ticketData.claimedBy}> | ₹${ticketData.amount}
+Fast & trusted exchange ❤️
 \`\`\`
 
-Thank you for using **Velvet Exchange**.`,
+✅ Shiba will automatically register your vouch.
+
+Thank you for choosing **Velvet Exchange** 💎`,
 
             ephemeral: false
 
