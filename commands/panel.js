@@ -5,9 +5,12 @@ const {
     ButtonBuilder,
     ButtonStyle
 } = require("discord.js");
-const rates = require("../data/rates.json");
-module.exports = {
 
+const fs = require("fs");
+const path = require("path");
+const rates = require("../data/rates.json");
+
+module.exports = {
     data: new SlashCommandBuilder()
         .setName("panel")
         .setDescription("Send the Velvet Exchange panel"),
@@ -40,35 +43,45 @@ module.exports = {
 
 Click a button below to continue.
 `)
-  .setImage("https://cdn.discordapp.com/attachments/1524757345970688123/1526309394093047859/7029-dark.gif")
-    .setFooter({
-        text: "Velvet Exchange V2"
-    });
+            .setImage("https://cdn.discordapp.com/attachments/1524757345970688123/1526309394093047859/7029-dark.gif")
+            .setFooter({
+                text: "Velvet Exchange V2"
+            });
 
-const row = new ActionRowBuilder()
-    .addComponents(
+        const row = new ActionRowBuilder().addComponents(
 
-        new ButtonBuilder()
-            .setCustomId("buy_crypto")
-            .setLabel("Buy Crypto")
-            .setEmoji("💸")
-            .setStyle(ButtonStyle.Success),
+            new ButtonBuilder()
+                .setCustomId("buy_crypto")
+                .setLabel("Buy Crypto")
+                .setEmoji("💸")
+                .setStyle(ButtonStyle.Success),
 
-        new ButtonBuilder()
-            .setCustomId("sell_crypto")
-            .setLabel("Sell Crypto")
-            .setEmoji("💰")
-            .setStyle(ButtonStyle.Danger)
+            new ButtonBuilder()
+                .setCustomId("sell_crypto")
+                .setLabel("Sell Crypto")
+                .setEmoji("💰")
+                .setStyle(ButtonStyle.Danger)
 
-    );
+        );
 
-await interaction.reply({
+        const message = await interaction.reply({
+            embeds: [embed],
+            components: [row],
+            fetchReply: true
+        });
 
-    embeds: [embed],
-    components: [row]
+        const panelPath = path.join(__dirname, "../data/panel.json");
 
-});
-
-}
-
+        fs.writeFileSync(
+            panelPath,
+            JSON.stringify(
+                {
+                    channelId: interaction.channel.id,
+                    messageId: message.id
+                },
+                null,
+                4
+            )
+        );
+    }
 };
