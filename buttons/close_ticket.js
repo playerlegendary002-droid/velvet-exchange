@@ -4,14 +4,19 @@ const {
 
 const discordTranscripts = require("discord-html-transcripts");
 const config = require("../config.json");
+const { checkTicketAccess } = require("../utils/checkTicketAccess");
 
 module.exports = {
 
     async execute(interaction) {
 
+        // Only claimed exchanger, manager or owner
+        if (!(await checkTicketAccess(interaction))) return;
+
         await interaction.reply({
 
-            content: "📄 Creating transcript...\n🔒 This ticket will close in **10 seconds**.",
+            content:
+                "📄 Creating transcript...\n🔒 This ticket will close in **10 seconds**.",
 
             ephemeral: false
 

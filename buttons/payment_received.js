@@ -4,9 +4,14 @@ const {
     ButtonStyle
 } = require("discord.js");
 
+const { checkTicketAccess } = require("../utils/checkTicketAccess");
+
 module.exports = {
 
     async execute(interaction) {
+
+        // Only claimed exchanger, manager or owner can use this button
+        if (!(await checkTicketAccess(interaction))) return;
 
         const oldRow = interaction.message.components[0];
 
@@ -19,8 +24,8 @@ module.exports = {
             if (b.data.custom_id === "payment_received") {
 
                 b.setDisabled(true)
-                 .setLabel("Payment Received")
-                 .setStyle(ButtonStyle.Secondary);
+                    .setLabel("Payment Received")
+                    .setStyle(ButtonStyle.Secondary);
 
             }
 

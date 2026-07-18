@@ -6,10 +6,14 @@ const {
 
 const fs = require("fs");
 const { saveOrder } = require("../utils/orderManager");
+const { checkTicketAccess } = require("../utils/checkTicketAccess");
 
 module.exports = {
 
     async execute(interaction) {
+
+        // Only claimed exchanger, manager or owner
+        if (!(await checkTicketAccess(interaction))) return;
 
         let ticketData;
 
@@ -79,10 +83,6 @@ module.exports = {
             components: [newRow]
         });
 
-        // ===========================
-        // SEND RECEIPT TO CUSTOMER DM
-        // ===========================
-
         try {
 
             const customer = await interaction.client.users.fetch(ticketData.user);
@@ -118,10 +118,6 @@ Keep this message as your exchange receipt.`
             console.log("Could not send DM to customer.");
 
         }
-
-        // ===========================
-        // VOUCH MESSAGE
-        // ===========================
 
         await interaction.followUp({
 

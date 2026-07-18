@@ -5,7 +5,7 @@ const {
 } = require("discord.js");
 const fs = require("fs");
 const checkStaff = require("../utils/checkStaff");
-
+const { lockTicket } = require("../utils/ticketPermissions");
 module.exports = {
 
     async execute(interaction) {
@@ -88,8 +88,17 @@ Required: ₹${amount.toLocaleString()}`,
         ticketData.claimedBy = interaction.user.id;
 
         await interaction.channel.setTopic(
-            JSON.stringify(ticketData)
-        );
+    JSON.stringify(ticketData)
+);
+
+const clientUserId = ticketData.user;
+
+await lockTicket(
+    interaction.channel,
+    interaction.user.id,
+    clientUserId
+);
+
 
         const oldRow = interaction.message.components[0];
 
