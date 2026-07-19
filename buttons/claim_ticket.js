@@ -22,7 +22,8 @@ module.exports = {
 
         }
 
-
+// Acknowledge the interaction immediately
+await interaction.deferUpdate();
 
 
 
@@ -120,11 +121,9 @@ await lockTicket(
 
         });
 
-        await interaction.update({
-
-            components: [newRow]
-
-        });
+        await interaction.message.edit({
+    components: [newRow]
+});
 
         await interaction.followUp({
 
