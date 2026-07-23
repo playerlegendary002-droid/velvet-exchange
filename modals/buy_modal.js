@@ -31,14 +31,29 @@ module.exports = {
             name: `💸-buy-${ticketNumber}`,
 
             type: ChannelType.GuildText,
-
             parent: config.ticketCategory,
 
             topic:  JSON.stringify({
+                // Customer
     user: interaction.user.id,
+
+    // Exchange
     amount: Number(amount),
-    claimedBy: null
-}), 
+    coin,
+    payment,
+    wallet,
+
+    // Staff
+    claimedBy: null,
+    middleman: null,
+
+    // Status
+    status: "waiting",
+    mmStatus: "none",
+
+    // Audit
+    createdAt: Date.now()
+     }),
 
             permissionOverwrites: [
 
